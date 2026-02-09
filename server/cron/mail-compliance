@@ -1,0 +1,4 @@
+# M3AAWG Compliance Monitoring
+*/15 * * * * root /usr/local/bin/mail-monitor.sh >/dev/null 2>&1
+0 8 * * * root /usr/local/bin/mail-daily-report.sh >/dev/null 2>&1
+*/5 * * * * root /usr/local/bin/mail-abuse-handler.sh >/dev/null 2>&1
