@@ -1,5 +1,3 @@
-const API_URL = '/api/gemini'
-
 const SYSTEM_PROMPT = `Eres un diseñador web experto y creativo. Tu trabajo es generar el contenido Y el diseño visual completo para una landing page.
 
 Responde UNICAMENTE con un JSON valido (sin markdown, sin \`\`\`, sin texto extra). El JSON debe tener esta estructura:
@@ -70,79 +68,93 @@ Las clases CSS que existen en el HTML son:
 - El CSS NO debe tener saltos de linea dentro del string JSON (usa espacios en vez de newlines)`
 
 export default async function generateWithAI(description, logoDataUrl, refImageDataUrl) {
-  const apiKey = import.meta.env.VITE_GEMINI_KEY
+  const provider = import.meta.env.VITE_AI_PROVIDER || 'openai'
+  const openaiKey = import.meta.env.VITE_OPENAI_KEY
+  const openrouterKey = import.meta.env.VITE_OPENROUTER_KEY
+
+  const apiKey = provider === 'openai' ? openaiKey : openrouterKey
   if (!apiKey) {
-    throw new Error('Falta la API key de Gemini. Agrega VITE_GEMINI_KEY en el archivo .env')
+    throw new Error(`Falta la API key de ${provider === 'openai' ? 'OpenAI' : 'OpenRouter'}. Agrega VITE_${provider === 'openai' ? 'OPENAI' : 'OPENROUTER'}_KEY en el archivo .env.local`)
   }
 
   // Truncate very long descriptions to avoid exceeding token limits
   const trimmedDesc = description.length > 500 ? description.substring(0, 500) + '...' : description
 
-  let prompt = `${SYSTEM_PROMPT}\n\nDescripcion del negocio:\n${trimmedDesc}`
+  let userPrompt = `Descripcion del negocio:\n${trimmedDesc}`
   if (refImageDataUrl) {
-    prompt += '\n\nIMAGEN DE REFERENCIA: Se adjunta una imagen de referencia (mockup, Figma, screenshot). Replica el diseño, layout, colores y estilo visual lo mas fielmente posible en tu CSS. Adapta el contenido al negocio descrito pero mantiene la estructura visual de la referencia.'
+    userPrompt += '\n\nIMAGEN DE REFERENCIA: Se adjunta una imagen de referencia (mockup, Figma, screenshot). Replica el diseño, layout, colores y estilo visual lo mas fielmente posible en tu CSS. Adapta el contenido al negocio descrito pero mantiene la estructura visual de la referencia.'
   }
 
-  const parts = [
-    { text: prompt }
+  // Build message content with text and images
+  const content = [
+    { type: 'text', text: userPrompt }
   ]
 
   // Include reference image if available (multimodal)
   if (refImageDataUrl) {
-    const match = refImageDataUrl.match(/^data:(image\/\w+);base64,(.+)$/)
-    if (match) {
-      parts.push({
-        inline_data: {
-          mime_type: match[1],
-          data: match[2]
-        }
-      })
-    }
+    content.push({
+      type: 'image_url',
+      image_url: { url: refImageDataUrl }
+    })
   }
 
   // Include logo if available (multimodal)
   if (logoDataUrl) {
-    const match = logoDataUrl.match(/^data:(image\/\w+);base64,(.+)$/)
-    if (match) {
-      parts.push({
-        inline_data: {
-          mime_type: match[1],
-          data: match[2]
-        }
-      })
-    }
+    content.push({
+      type: 'image_url',
+      image_url: { url: logoDataUrl }
+    })
   }
 
-  const res = await fetch(`${API_URL}?key=${apiKey}`, {
+  const apiUrl = provider === 'openai'
+    ? 'https://api.openai.com/v1/chat/completions'
+    : 'https://openrouter.ai/api/v1/chat/completions'
+
+  const model = provider === 'openai' ? 'gpt-4o' : 'openai/gpt-4o'
+
+  const res = await fetch(apiUrl, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    },
     body: JSON.stringify({
-      contents: [{ parts }],
-      generationConfig: {
-        temperature: 0.9,
-        maxOutputTokens: 16384,
-        responseMimeType: 'application/json'
-      }
+      model: model,
+      messages: [
+        {
+          role: 'system',
+          content: SYSTEM_PROMPT
+        },
+        {
+          role: 'user',
+          content: content
+        }
+      ],
+      temperature: 0.9,
+      max_tokens: 4000
     })
   })
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
-    throw new Error(err.error?.message || `Gemini API error: ${res.status}`)
+    const providerName = provider === 'openai' ? 'OpenAI' : 'OpenRouter'
+    throw new Error(err.error?.message || `${providerName} API error: ${res.status}`)
   }
 
   const data = await res.json()
 
   // Check if response was truncated
-  const finishReason = data.candidates?.[0]?.finishReason
-  if (finishReason === 'MAX_TOKENS') {
-    console.warn('Gemini response truncated (MAX_TOKENS)')
+  const finishReason = data.choices?.[0]?.finish_reason
+  if (finishReason === 'length') {
+    const providerName = provider === 'openai' ? 'OpenAI' : 'OpenRouter'
+    console.warn(`${providerName} response truncated (MAX_TOKENS)`)
   }
 
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text
+  const text = data.choices?.[0]?.message?.content
   if (!text) {
-    console.error('Gemini full response:', JSON.stringify(data).substring(0, 1000))
-    throw new Error('Respuesta vacia de Gemini')
+    const providerName = provider === 'openai' ? 'OpenAI' : 'OpenRouter'
+    console.error(`${providerName} full response:`, JSON.stringify(data).substring(0, 1000))
+    throw new Error(`Respuesta vacia de ${providerName}`)
   }
 
   // Clean up any markdown wrapping
@@ -221,11 +233,12 @@ export default async function generateWithAI(description, logoDataUrl, refImageD
       try {
         return JSON.parse(repairTruncated(cleaned))
       } catch (e) {
-        console.error('Gemini raw output (first 800):', text.substring(0, 800))
-        console.error('Gemini raw output (last 300):', text.substring(text.length - 300))
+        const providerName = provider === 'openai' ? 'OpenAI' : 'OpenRouter'
+        console.error(`${providerName} raw output (first 800):`, text.substring(0, 800))
+        console.error(`${providerName} raw output (last 300):`, text.substring(text.length - 300))
         console.error('Parse error:', e.message)
         console.error('finishReason:', finishReason)
-        throw new Error('Gemini no devolvio JSON valido. Intenta de nuevo.')
+        throw new Error(`${providerName} no devolvio JSON valido. Intenta de nuevo.`)
       }
     }
   }

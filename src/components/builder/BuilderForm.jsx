@@ -9,7 +9,7 @@ import TypographyEditor from './TypographyEditor'
 import FAQEditor from './FAQEditor'
 import FormBuilder from './FormBuilder'
 import DeployPanel from './DeployPanel'
-import generateWithAI from '../../utils/generateWithAI'
+import generateWithAIBatched from '../../utils/generateWithAIBatched'
 
 export default function BuilderForm({ state, dispatch, pendingDeploy, onDeployDone }) {
   const [description, setDescription] = useState('')
@@ -40,7 +40,7 @@ export default function BuilderForm({ state, dispatch, pendingDeploy, onDeployDo
     try {
       const logoDataUrl = state.logo?.dataUrl || null
       const refDataUrl = refImage?.dataUrl || null
-      const result = await generateWithAI(description, logoDataUrl, refDataUrl)
+      const result = await generateWithAIBatched(description, logoDataUrl, refDataUrl)
       dispatch({ type: 'LOAD_AI_STATE', payload: result })
     } catch (err) {
       setError(err.message)
