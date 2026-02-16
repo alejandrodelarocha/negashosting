@@ -444,7 +444,7 @@ export default function Portfolio() {
           animate="visible"
         >
           {/* Left side - Text content */}
-          <div>
+          <div className="-mt-[20px]">
             <motion.div variants={itemVariants} className="mb-6">
               <span className="text-cyan-400 text-sm font-semibold">👋 Welcome to my portfolio</span>
             </motion.div>
@@ -461,7 +461,8 @@ export default function Portfolio() {
 
             <motion.p
               variants={itemVariants}
-              className="text-xl text-slate-300 mb-8 leading-relaxed"
+              className="text-xl text-slate-300 mb-8 leading-relaxed md:mb-[180px]
+ "
             >
               16+ years building scalable web applications, AI-powered solutions, and digital products.
               Specialized in React, TypeScript, Node.js, and AWS infrastructure.
@@ -845,7 +846,7 @@ export default function Portfolio() {
 
         {/* Buttons and Social moved outside grid */}
         <motion.div
-          className="max-w-7xl mx-auto relative z-10 -mt-[30px]"
+          className="max-w-7xl mx-auto relative z-10 -mt-[180px]"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
