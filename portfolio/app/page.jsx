@@ -1,13 +1,56 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { Menu, X, ExternalLink, Linkedin, Mail, ArrowRight, Code2, Zap, Database, Cloud } from 'lucide-react';
 
 export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [selectedSkill, setSelectedSkill] = React.useState(null);
   const [isPhotoHovered, setIsPhotoHovered] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(false);
+  const [photoInView, setPhotoInView] = React.useState(false);
+
+  React.useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  const [activeCard, setActiveCard] = React.useState(0);
+  const magneticButtonRef = React.useRef(null);
+  const buttonX = useMotionValue(0);
+  const buttonY = useMotionValue(0);
+  const buttonSpringX = useSpring(buttonX, { damping: 20, stiffness: 300 });
+  const buttonSpringY = useSpring(buttonY, { damping: 20, stiffness: 300 });
+
+  const showcaseCards = [
+    { id: 1, title: 'Full-Stack', description: 'End-to-end development from databases to pixel-perfect UIs', gradient: 'from-blue-500 via-cyan-400 to-blue-300', icon: '🚀' },
+    { id: 2, title: 'AI Integration', description: 'Building intelligent features with cutting-edge AI models', gradient: 'from-purple-500 via-pink-400 to-purple-300', icon: '✨' },
+    { id: 3, title: 'Performance', description: 'Lightning-fast applications optimized for scale', gradient: 'from-orange-500 via-red-400 to-orange-300', icon: '⚡' },
+    { id: 4, title: 'Architecture', description: 'Clean, maintainable systems built to evolve', gradient: 'from-green-500 via-emerald-400 to-green-300', icon: '🎵' },
+  ];
+
+  React.useEffect(() => {
+    const handleMagnetic = (e) => {
+      if (!magneticButtonRef.current) return;
+      const rect = magneticButtonRef.current.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+      if (dist < 100) {
+        const angle = Math.atan2(e.clientY - cy, e.clientX - cx);
+        const pull = (1 - dist / 100) * 30;
+        buttonX.set(Math.cos(angle) * pull);
+        buttonY.set(Math.sin(angle) * pull);
+      } else {
+        buttonX.set(0);
+        buttonY.set(0);
+      }
+    };
+    window.addEventListener('mousemove', handleMagnetic);
+    return () => window.removeEventListener('mousemove', handleMagnetic);
+  }, [buttonX, buttonY]);
 
   const menuItems = [
     { label: 'Home', href: '#home' },
@@ -642,10 +685,14 @@ export default function Portfolio() {
               <motion.div
                 className="relative rounded-3xl overflow-hidden"
                 whileHover={{
+                  scale: 1.15,
                   boxShadow: '0 0 60px rgba(6, 182, 212, 0.6), 0 0 100px rgba(59, 130, 246, 0.3)',
                 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 15 }}
                 onHoverStart={() => setIsPhotoHovered(true)}
                 onHoverEnd={() => setIsPhotoHovered(false)}
+                onViewportEnter={() => setPhotoInView(true)}
+                viewport={{ once: true, amount: 0.3 }}
               >
                 {/* Animated background gradient visible through transparency */}
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/30 to-purple-500/30"></div>
@@ -655,17 +702,53 @@ export default function Portfolio() {
                   src="/alejandro.png"
                   alt="Alejandro de la Rocha"
                   className="relative z-10 w-full h-auto max-w-sm object-cover"
-                  animate={{ opacity: isPhotoHovered ? 0 : 1 }}
+                  animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 />
-                {/* Waving GIF on hover */}
-                <motion.img
-                  src="/hi.gif"
-                  alt="Alejandro waving"
-                  className="absolute inset-0 z-10 w-full h-full object-cover"
-                  animate={{ opacity: isPhotoHovered ? 1 : 0 }}
-                  transition={{ duration: 0.3 }}
-                />
+
+                {/* Code generation effect - bottom */}
+                <motion.div
+                  className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none overflow-hidden"
+                  animate={{ opacity: ((isMobile && photoInView) || isPhotoHovered) ? 1 : 0, height: ((isMobile && photoInView) || isPhotoHovered) ? '60%' : '0%' }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/60 to-transparent" />
+                  {['const portfolio = await build();', 'export default function Engineer() {', '  return <FullStack skills={[', '    "React", "Node.js", "AI",', '    "TypeScript", "Python"', '  ]} experience={16} />;', '}', 'deploy({ target: "production" });'].map((line, i) => (
+                    <motion.div
+                      key={`bottom-${i}`}
+                      className="relative px-3 font-mono text-[10px] leading-relaxed"
+                      animate={{
+                        opacity: ((isMobile && photoInView) || isPhotoHovered) ? [0, 1] : 0,
+                        y: ((isMobile && photoInView) || isPhotoHovered) ? [20, 0] : 20,
+                      }}
+                      transition={{ delay: (isMobile && photoInView) ? 0.8 + i * 0.15 : i * 0.08, duration: 0.4 }}
+                    >
+                      <span className="text-cyan-400/80">{line}</span>
+                    </motion.div>
+                  ))}
+                </motion.div>
+
+                {/* Code generation effect - right */}
+                <motion.div
+                  className="absolute top-0 right-0 bottom-0 z-20 pointer-events-none overflow-hidden flex flex-col justify-center"
+                  animate={{ opacity: ((isMobile && photoInView) || isPhotoHovered) ? 1 : 0, width: ((isMobile && photoInView) || isPhotoHovered) ? '45%' : '0%' }}
+                  transition={{ duration: 0.6, delay: (isMobile && photoInView) ? 0.4 : 0.1 }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-l from-slate-950/90 via-slate-950/60 to-transparent" />
+                  {['// 16+ years', 'async function', '  solve(problem) {', '  const result =', '    await think()', '  return result', '}', '// ship it 🚀'].map((line, i) => (
+                    <motion.div
+                      key={`right-${i}`}
+                      className="relative px-2 font-mono text-[10px] leading-relaxed text-right"
+                      animate={{
+                        opacity: ((isMobile && photoInView) || isPhotoHovered) ? [0, 1] : 0,
+                        x: ((isMobile && photoInView) || isPhotoHovered) ? [20, 0] : 20,
+                      }}
+                      transition={{ delay: (isMobile && photoInView) ? 1.2 + i * 0.15 : 0.2 + i * 0.08, duration: 0.4 }}
+                    >
+                      <span className="text-emerald-400/80">{line}</span>
+                    </motion.div>
+                  ))}
+                </motion.div>
 
                 {/* Animated border with wave effect */}
                 <motion.div
@@ -882,21 +965,23 @@ export default function Portfolio() {
           {/* Social Links */}
           <motion.div
             variants={itemVariants}
-            className="flex gap-6 text-slate-400 mt-4"
+            className="flex justify-center gap-8 text-white mt-4"
           >
             <motion.a
               whileHover={{ y: -5, color: '#06b6d4' }}
               href="https://www.linkedin.com/in/alejandrodlrocha/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-cyan-400 transition-colors"
             >
-              <Linkedin size={24} />
+              <Linkedin size={28} />
             </motion.a>
             <motion.a
               whileHover={{ y: -5, color: '#06b6d4' }}
               href="mailto:hi@alejandrodelarocha.com"
               className="hover:text-cyan-400 transition-colors"
             >
-              <Mail size={24} />
+              <Mail size={28} />
             </motion.a>
           </motion.div>
         </motion.div>
@@ -1097,7 +1182,7 @@ export default function Portfolio() {
             viewport={{ once: true }}
             className="text-slate-300 text-center mb-16 text-lg"
           >
-            Click on any skill to see proficiency level
+            Click on any skill to see proficiency level or click on the SKILLS center to download CV
           </motion.p>
 
           {/* Rotating Skills Circle - Advanced Animations */}
@@ -1586,18 +1671,16 @@ export default function Portfolio() {
               exit={{ opacity: 0, y: 20 }}
               className="mt-20 max-w-4xl mx-auto"
             >
-              <div className="bg-gradient-to-br from-slate-700/30 to-slate-800/30 rounded-lg p-8 border border-slate-600/50 hover:border-cyan-500/50 transition-all">
-                <div className="flex items-center gap-3 mb-6">
-                  <h3 className="text-2xl font-bold text-cyan-400">{skills[selectedSkill].category}</h3>
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-lg font-semibold text-cyan-300 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 px-4 py-2 rounded-full border border-cyan-500/50 backdrop-blur-sm"
-                  >
-                    {skills[selectedSkill].proficiency}% proficient
-                  </motion.span>
-                </div>
-                <div className="flex flex-wrap gap-3">
+              <div className="bg-gradient-to-br from-slate-700/30 to-slate-800/30 rounded-lg p-8 border border-slate-600/50 hover:border-cyan-500/50 transition-all text-center">
+                <h3 className="text-2xl font-bold text-cyan-400 mb-3">{skills[selectedSkill].category}</h3>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="inline-block text-lg font-semibold text-cyan-300 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 px-4 py-2 rounded-full border border-cyan-500/50 backdrop-blur-sm mb-6"
+                >
+                  {skills[selectedSkill].proficiency}% proficient
+                </motion.span>
+                <div className="flex flex-wrap justify-center gap-3">
                   {skills[selectedSkill].items.map((item) => (
                     <motion.span
                       key={item}
