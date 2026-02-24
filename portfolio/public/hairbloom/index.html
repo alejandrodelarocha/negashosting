@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Proposal - Bloom Hair Salon</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #D4A0A0;
+    --pink-dark: #C08080;
+    --pink-light: rgba(212, 160, 160, 0.08);
+    --pink-glow: rgba(212, 160, 160, 0.15);
+    --black: #1A1A1A;
+    --charcoal: #2A2A2A;
+    --warm-gray: #6B6560;
+    --light-gray: #9A9490;
+    --cream: #FDF0EE;
+    --offwhite: #FDF8F7;
+    --white: #FFFFFF;
+    --border: #E8DDD8;
+    --gold: #B8942E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #F8EDE9;
+    color: var(--charcoal);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ========== PROPOSAL CARD SECTION ========== */
+  .proposal-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: linear-gradient(160deg, #F8EDE9 0%, #F2D4CC 50%, #FDF0EE 100%);
+    position: relative;
+  }
+
+  .proposal-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4A0A0' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .proposal-card {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    background: var(--white);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02), 0 24px 80px rgba(26,26,26,0.08);
+    animation: cardIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .card-header {
+    background: var(--black);
+    padding: 36px 40px 32px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .card-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--pink), #E8B4B4, var(--pink));
+  }
+
+  .card-logo-wrap {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+
+  .card-logo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .card-header-text {
+    flex: 1;
+  }
+
+  .card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(212, 160, 160, 0.2);
+    color: #E8B4B4;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .card-subtitle {
+    color: rgba(255,255,255,0.45);
+    font-size: 13px;
+  }
+
+  .card-body {
+    padding: 36px 40px;
+  }
+
+  .card-intro {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--warm-gray);
+    margin-bottom: 28px;
+    border-left: 3px solid var(--pink);
+    padding-left: 16px;
+  }
+
+  .card-intro strong {
+    color: var(--charcoal);
+  }
+
+  .card-feature-callout {
+    background: linear-gradient(135deg, var(--pink-light) 0%, rgba(184, 148, 46, 0.08) 100%);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--charcoal);
+    font-weight: 500;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--pink-dark);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .deliverable-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .deliverable-item {
+    background: var(--offwhite);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 18px;
+    transition: all 0.25s ease;
+    position: relative;
+  }
+
+  .deliverable-item:hover {
+    border-color: var(--pink);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212, 160, 160, 0.12);
+  }
+
+  .deliverable-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  .d-icon-web { background: var(--pink-light); color: var(--pink-dark); }
+  .d-icon-booking { background: rgba(184, 148, 46, 0.12); color: #B8942E; }
+  .d-icon-seo { background: rgba(26, 26, 26, 0.06); color: var(--black); }
+  .d-icon-social { background: var(--pink-light); color: var(--pink-dark); }
+  .d-icon-cellphone { background: var(--pink-light); color: var(--pink-dark); }
+  .d-icon-promo { background: var(--pink-light); color: var(--pink-dark); }
+
+  .deliverable-item h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+  }
+
+  .deliverable-item p {
+    font-size: 12px;
+    color: var(--warm-gray);
+    line-height: 1.55;
+  }
+
+  .pricing-block {
+    background: var(--offwhite);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 24px 20px;
+    margin-bottom: 28px;
+  }
+
+  .pricing-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pricing-row:last-of-type:not(.pricing-total) { border-bottom: none; }
+
+  .pricing-total {
+    border-top: 2px solid var(--black);
+    border-bottom: none;
+    margin-top: 10px;
+    padding-top: 16px;
+  }
+
+  .pricing-label {
+    font-size: 13px;
+    color: var(--warm-gray);
+  }
+
+  .pricing-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  .pricing-value.free {
+    color: #2E8B57;
+  }
+
+  .pricing-total .pricing-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  .pricing-total .pricing-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--pink-dark);
+  }
+
+  .pricing-note {
+    font-size: 11px;
+    color: var(--light-gray);
+    text-align: center;
+    margin-top: 14px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .pricing-note span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .card-footer {
+    padding: 0 40px 28px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 15px 24px;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: center;
+    border: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-pink {
+    background: var(--pink-dark);
+    color: var(--white);
+  }
+
+  .btn-pink:hover {
+    background: #A86868;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(212, 160, 160, 0.4);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--charcoal);
+    border: 2px solid var(--border);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--black);
+  }
+
+  .card-contact {
+    padding: 0 40px 24px;
+    text-align: center;
+  }
+
+  .card-contact p {
+    font-size: 12px;
+    color: var(--light-gray);
+  }
+
+  .card-contact a {
+    color: var(--pink-dark);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* ========== DIVIDER ========== */
+  .divider-section {
+    text-align: center;
+    padding: 72px 20px;
+    background: var(--black);
+    color: var(--white);
+    position: relative;
+  }
+
+  .divider-section::before, .divider-section::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--pink), transparent);
+  }
+  .divider-section::before { top: 0; }
+  .divider-section::after { bottom: 0; }
+
+  .divider-eyebrow {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--pink);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .divider-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 900;
+  }
+
+  .divider-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 8px;
+  }
+
+  .arrow-bounce {
+    margin-top: 28px;
+    font-size: 20px;
+    color: var(--pink);
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* ========== DEMO SITE ========== */
+  .demo-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--white);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.04), 0 40px 120px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+
+  .browser-chrome {
+    background: #2A2A2A;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .browser-dots { display: flex; gap: 6px; }
+  .browser-dots i { width: 10px; height: 10px; border-radius: 50%; display: block; }
+  .browser-dots i:nth-child(1) { background: #FF5F57; }
+  .browser-dots i:nth-child(2) { background: #FFBD2E; }
+  .browser-dots i:nth-child(3) { background: #28CA41; }
+
+  .browser-url-bar {
+    flex: 1;
+    background: rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 7px 14px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    font-family: monospace;
+  }
+
+  /* NAV */
+  .site-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 48px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .site-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .site-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  .site-logo-text span { color: var(--pink-dark); }
+
+  .site-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .site-nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--warm-gray);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+
+  .site-nav-links a:hover { color: var(--pink-dark); }
+
+  .nav-cta {
+    background: var(--pink-dark) !important;
+    color: var(--white) !important;
+    padding: 10px 22px !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: #A86868 !important; }
+
+  /* HERO - VIDEO */
+  .site-hero {
+    position: relative;
+    min-height: 520px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    padding: 40px;
+  }
+
+  .site-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+
+  .site-hero h1 em {
+    font-style: italic;
+    color: var(--pink);
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto 24px;
+    opacity: 0.85;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .hero-btn {
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-btn-pink { background: var(--pink-dark); color: var(--white); }
+  .hero-btn-pink:hover { background: #A86868; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212,160,160,0.35); }
+  .hero-btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.4); }
+  .hero-btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+  /* NEWS / REFURBISHMENT */
+  .news-section {
+    padding: 56px 48px;
+    background: var(--cream);
+  }
+
+  .news-banner {
+    max-width: 720px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, var(--white) 0%, #FFF5F3 100%);
+    border: 2px solid var(--pink);
+    border-radius: 20px;
+    padding: 36px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .news-banner::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--pink-light);
+  }
+
+  .news-banner-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--pink-dark);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  .news-banner h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--black);
+    margin-bottom: 12px;
+  }
+
+  .news-banner p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--warm-gray);
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  /* GALLERY */
+  .gallery-section {
+    padding: 64px 48px;
+    background: var(--offwhite);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .gallery-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+  }
+
+  .gallery-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(212,160,160,0.2);
+  }
+
+  .gallery-card-image {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+  }
+
+  .gallery-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .gallery-card:hover .gallery-card-image img {
+    transform: scale(1.05);
+  }
+
+  .gallery-card-body {
+    padding: 14px 16px 16px;
+  }
+
+  .gallery-card-body p {
+    font-size: 13px;
+    color: var(--warm-gray);
+    line-height: 1.5;
+  }
+
+  /* TEAM */
+  .team-section {
+    padding: 64px 48px;
+    background: var(--cream);
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .team-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+  }
+
+  .team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(212,160,160,0.15);
+  }
+
+  .team-card-image {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+  }
+
+  .team-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .team-card:hover .team-card-image img {
+    transform: scale(1.05);
+  }
+
+  .team-card-body {
+    padding: 16px 18px 18px;
+  }
+
+  .team-card-body p {
+    font-size: 13px;
+    color: var(--warm-gray);
+    line-height: 1.5;
+  }
+
+  /* SERVICES */
+  .services-section {
+    padding: 64px 48px;
+    background: var(--offwhite);
+  }
+
+  .sec-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .sec-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--pink-dark);
+    margin-bottom: 8px;
+  }
+
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 900;
+    color: var(--black);
+  }
+
+  .service-category {
+    margin-bottom: 48px;
+  }
+
+  .service-category:last-child {
+    margin-bottom: 0;
+  }
+
+  .service-category-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--pink-dark);
+    display: inline-block;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .service-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    padding: 24px;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+    border-color: rgba(212, 160, 160, 0.4);
+  }
+
+  .service-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 14px;
+    background: var(--pink-light);
+    color: var(--pink-dark);
+  }
+
+  .service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--black);
+  }
+
+  .service-card p {
+    font-size: 13px;
+    color: var(--warm-gray);
+    line-height: 1.6;
+  }
+
+  .service-card .service-price {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--pink-dark);
+  }
+
+  /* FEATURE STRIP */
+  .feature-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: var(--black);
+  }
+
+  .feature-strip-item {
+    padding: 24px 20px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    color: var(--white);
+  }
+
+  .feature-strip-item:last-child { border-right: none; }
+
+  .fs-icon { font-size: 20px; margin-bottom: 6px; }
+  .fs-text { font-size: 13px; font-weight: 600; }
+  .fs-sub { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: var(--pink-dark);
+    padding: 52px 48px;
+    text-align: center;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-opacity='0.06' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    pointer-events: none;
+  }
+
+  .cta-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .cta-banner p {
+    font-size: 15px;
+    opacity: 0.85;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .cta-white-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    color: var(--pink-dark);
+    padding: 14px 36px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    position: relative;
+    transition: all 0.2s;
+  }
+
+  .cta-white-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+
+  /* FOOTER */
+  .site-footer {
+    background: var(--black);
+    padding: 36px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .footer-info {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.6;
+  }
+
+  .footer-info strong {
+    color: var(--white);
+    font-size: 14px;
+    display: block;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    color: rgba(255,255,255,0.35);
+    text-decoration: none;
+    font-size: 12px;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--white); }
+
+  /* POWERED BY */
+  .powered {
+    text-align: center;
+    padding: 28px 20px;
+    background: #F8EDE9;
+    font-size: 12px;
+    color: var(--light-gray);
+  }
+
+  .powered a { color: var(--pink-dark); text-decoration: none; font-weight: 600; }
+
+  /* SCROLL ANIMATIONS */
+  .scroll-anim {
+    opacity: 0;
+    transform: translateY(40px) scale(0.97);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .scroll-anim.in-view {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .scroll-anim-delay-1 { transition-delay: 0.1s; }
+  .scroll-anim-delay-2 { transition-delay: 0.2s; }
+  .scroll-anim-delay-3 { transition-delay: 0.3s; }
+  .scroll-anim-children .scroll-anim { transition-duration: 0.6s; }
+  .scroll-anim-children .scroll-anim:nth-child(1) { transition-delay: 0s; }
+  .scroll-anim-children .scroll-anim:nth-child(2) { transition-delay: 0.1s; }
+  .scroll-anim-children .scroll-anim:nth-child(3) { transition-delay: 0.2s; }
+  .scroll-anim-children .scroll-anim:nth-child(4) { transition-delay: 0.3s; }
+  .scroll-anim-children .scroll-anim:nth-child(5) { transition-delay: 0.4s; }
+  .scroll-anim-children .scroll-anim:nth-child(6) { transition-delay: 0.5s; }
+
+  /* HOVER EFFECTS - Gallery cards */
+  .gallery-card {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  }
+  .gallery-card:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+    box-shadow: 0 20px 50px rgba(212, 160, 160, 0.25);
+  }
+  .gallery-card-image img {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  }
+  .gallery-card:hover .gallery-card-image img {
+    transform: scale(1.08);
+    filter: brightness(1.05) saturate(1.1);
+  }
+
+  /* HOVER EFFECTS - Team cards */
+  .team-card {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  }
+  .team-card:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+    box-shadow: 0 20px 50px rgba(212, 160, 160, 0.25);
+  }
+  .team-card-image img {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .team-card:hover .team-card-image img {
+    transform: scale(1.06);
+  }
+
+  /* HOVER EFFECTS - Service cards */
+  .service-card {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(212, 160, 160, 0.18);
+    border-color: var(--pink);
+  }
+  .service-card:hover .service-card-icon {
+    transform: scale(1.15) rotate(-5deg);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .service-card-icon {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* HOVER EFFECTS - Deliverable items */
+  .deliverable-item {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .deliverable-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(212, 160, 160, 0.15);
+    border-color: var(--pink);
+  }
+
+  /* HOVER EFFECTS - Buttons */
+  .btn-pink:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(212, 160, 160, 0.4);
+  }
+  .hero-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  /* NEWS BANNER hover */
+  .news-banner {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  }
+  .news-banner:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(212, 160, 160, 0.2);
+  }
+
+  /* FEATURE STRIP items */
+  .feature-strip > div {
+    transition: transform 0.3s ease;
+  }
+  .feature-strip > div:hover {
+    transform: translateY(-3px);
+  }
+
+  /* FLOATING ANIMATION for hero content */
+  @keyframes floatUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  /* PROPOSAL CARD entrance */
+  .proposal-card {
+    animation: cardIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .card-badge {
+    animation: fadeInScale 0.6s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .card-title {
+    animation: floatUp 0.6s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .card-subtitle {
+    animation: floatUp 0.6s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* SECTION HEADERS - slide in from left */
+  .sec-header {
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .scroll-anim.in-view .sec-header,
+  .scroll-anim.in-view.sec-header {
+    animation: floatUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* PRICING SHIMMER on hover */
+  .pricing-total .pricing-value {
+    background: linear-gradient(90deg, var(--pink), var(--pink-dark), var(--pink));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .pricing-block:hover .pricing-total .pricing-value {
+    animation: shimmer 2s linear infinite;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .card-header { padding: 24px; flex-direction: column; text-align: center; }
+    .card-logo-wrap { width: 64px; height: 64px; }
+    .card-body, .card-footer, .card-contact { padding-left: 24px; padding-right: 24px; }
+    .deliverable-grid { grid-template-columns: 1fr; }
+    .card-title { font-size: 22px; }
+    .site-hero h1 { font-size: 38px; }
+    .feature-strip { grid-template-columns: repeat(2, 1fr); }
+    .service-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .team-grid { grid-template-columns: 1fr; }
+    .site-nav { padding: 12px 20px; }
+    .site-nav-links { gap: 14px; }
+    .site-nav-links a { font-size: 11px; }
+    .news-section { padding: 40px 20px; }
+    .news-banner { padding: 28px 24px; }
+    .gallery-section, .team-section, .services-section { padding: 40px 20px; }
+    .site-footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ==================== PROPOSAL CARD ==================== -->
+<section class="proposal-section">
+  <div class="proposal-card">
+    <div class="card-header">
+      <div class="card-logo-wrap">
+        <img src="img/image.png" alt="Bloom Hair Salon Logo">
+      </div>
+      <div class="card-header-text">
+        <div class="card-badge">&#9733; Web Proposal</div>
+        <h1 class="card-title">Bloom Hair Salon</h1>
+        <p class="card-subtitle">Custom Website &amp; Digital Presence Package</p>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <p class="card-intro">
+        <strong>Bloom Hair Salon</strong> has built a beautiful reputation for exceptional colour, styling, and care. With a freshly refurbished salon, now is the perfect time to match that gorgeous new interior with a stunning online presence. Your dedicated website will convert your reputation into <strong>24/7 online visibility</strong> &mdash; putting your services, gallery, and booking in front of every client searching for a top hair salon in your area.
+      </p>
+
+      <div class="card-feature-callout">Looks great on cell phones, tablets and computers</div>
+
+      <p class="section-label">What's Included</p>
+      <div class="deliverable-grid">
+        <div class="deliverable-item">
+          <div class="deliverable-icon d-icon-web">&#9783;</div>
+          <h4>Custom Website</h4>
+          <p>Stunning, mobile-first design showcasing your salon's new look, services, team, and client gallery with your unique branding.</p>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-icon d-icon-booking">&#128197;</div>
+          <h4>Online Booking</h4>
+          <p>Integrated booking system so clients can schedule appointments 24/7 &mdash; cuts, colour, treatments, all from their phone.</p>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-icon d-icon-seo">&#9881;</div>
+          <h4>SEO &amp; Google</h4>
+          <p>Optimized for local searches like "hair salon near me", "balayage", and "hair colourist" to drive real bookings to your chair.</p>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-icon d-icon-social">&#9993;</div>
+          <h4>Social Media Integration</h4>
+          <p>Instagram gallery feed, Facebook links, and review widgets &mdash; all connected from one beautiful central hub.</p>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-icon d-icon-cellphone">&#128241;</div>
+          <h4>Mobile-First Design</h4>
+          <p>Looks stunning on every device &mdash; phones, tablets, and desktops. Because your clients are booking on the go.</p>
+        </div>
+        <div class="deliverable-item">
+          <div class="deliverable-icon d-icon-promo">&#128226;</div>
+          <h4>Promotions Page</h4>
+          <p>Dedicated space for seasonal offers, new service launches, referral deals, and special events to keep clients coming back.</p>
+        </div>
+      </div>
+
+      <p class="section-label">Investment</p>
+      <div class="pricing-block">
+        <div class="pricing-row">
+          <span class="pricing-label">Custom Website Design &amp; Development</span>
+          <span class="pricing-value">$497</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-label">Google Business &amp; SEO Setup</span>
+          <span class="pricing-value">$150</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-label">Domain + Hosting (1st year)</span>
+          <span class="pricing-value free">FREE</span>
+        </div>
+        <div class="pricing-row">
+          <span class="pricing-label">Ongoing Hosting &amp; Support</span>
+          <span class="pricing-value">$29/mo</span>
+        </div>
+        <div class="pricing-row pricing-total">
+          <span class="pricing-label">Launch Price</span>
+          <span class="pricing-value">$647</span>
+        </div>
+        <div class="pricing-note">
+          <span>&#10003; 1st year hosting free</span>
+          <span>&#10003; No contracts</span>
+          <span>&#10003; Cancel anytime</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <a href="https://wa.me/526142231464" class="btn btn-pink" target="_blank" rel="noopener">&#10003; Let's Talk</a>
+      <a href="#preview"><button class="btn btn-outline">View Demo &#8595;</button></a>
+    </div>
+
+    <div class="card-contact">
+      <p>Developed by <a href="https://alejandrodelarocha.com" target="_blank" rel="noopener">AlejandroDeLaRocha.com</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DIVIDER ==================== -->
+<div class="divider-section">
+  <p class="divider-eyebrow">&#9654; Live Preview</p>
+  <h2 class="divider-title">Your New Website</h2>
+  <p class="divider-sub">Here's what SheffieldSalon.com could look like</p>
+  <div class="arrow-bounce">&#8595;</div>
+</div>
+
+<!-- ==================== DEMO SITE ==================== -->
+<div class="demo-wrapper">
+  <div class="browser-chrome">
+    <div class="browser-dots"><i></i><i></i><i></i></div>
+    <a name="preview"></a>
+    <div class="browser-url-bar">&#128274; SheffieldSalon.com</div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <div class="site-logo">
+      <div class="site-logo-text">Bloom <span>Hair Salon</span></div>
+    </div>
+    <ul class="site-nav-links">
+      <li><a href="#">Services</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Gallery</a></li>
+      <li><a href="#" class="nav-cta">Book Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO - VIDEO BACKGROUND -->
+  <section class="site-hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="img/hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Where Beauty<br><em>Blooms</em></h1>
+      <p class="hero-desc">Expert colour, styling &amp; care in our newly refurbished salon</p>
+      <div class="hero-buttons">
+        <button class="hero-btn hero-btn-pink">&#128197; Book Now</button>
+        <button class="hero-btn hero-btn-outline">&#9742; Call Us</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE STRIP -->
+  <div class="feature-strip scroll-anim">
+    <div class="feature-strip-item">
+      <div class="fs-icon">&#9986;</div>
+      <div class="fs-text">Expert Stylists</div>
+      <div class="fs-sub">Colour &amp; Cut Specialists</div>
+    </div>
+    <div class="feature-strip-item">
+      <div class="fs-icon">&#10024;</div>
+      <div class="fs-text">Freshly Refurbished</div>
+      <div class="fs-sub">Brand New Interior</div>
+    </div>
+    <div class="feature-strip-item">
+      <div class="fs-icon">&#128197;</div>
+      <div class="fs-text">Online Booking</div>
+      <div class="fs-sub">Book 24/7</div>
+    </div>
+    <div class="feature-strip-item">
+      <div class="fs-icon">&#128149;</div>
+      <div class="fs-text">5-Star Reviews</div>
+      <div class="fs-sub">Loved by Clients</div>
+    </div>
+  </div>
+
+  <!-- NEWS SECTION - REFURBISHMENT -->
+  <section class="news-section scroll-anim">
+    <div class="sec-header" style="margin-bottom: 28px;">
+      <p class="sec-eyebrow">&#10024; What's New</p>
+      <h2 class="sec-title">Exciting News</h2>
+    </div>
+    <div class="news-banner">
+      <div class="news-banner-badge">&#10024; Just Announced</div>
+      <h3>Freshly Refurbished &amp; Celebrating 10 Years!</h3>
+      <p>We've completely transformed our salon with a stunning new interior, updated stations, and a fresh modern look. And what better time than our 10th anniversary! From the moment you walk in, you'll feel the difference. Come see the new Bloom &mdash; same amazing team, beautiful new space.</p>
+    </div>
+    <div class="gallery-grid scroll-anim-children" style="margin-top:28px;">
+      <div class="gallery-card scroll-anim">
+        <div class="gallery-card-image">
+          <img src="img/image-v13.png" alt="Bloom Hair Salon 10th anniversary celebration">
+        </div>
+        <div class="gallery-card-body">
+          <p>Celebrating 10 incredible years of Bloom Hair Salon</p>
+        </div>
+      </div>
+      <div class="gallery-card scroll-anim">
+        <div class="gallery-card-image">
+          <img src="img/image-v11.png" alt="Bloom team celebrating the refurbishment">
+        </div>
+        <div class="gallery-card-body">
+          <p>The whole team celebrating our stunning new salon</p>
+        </div>
+      </div>
+      <div class="gallery-card scroll-anim">
+        <div class="gallery-card-image">
+          <img src="img/image-v14.png" alt="Celebration party at Bloom Hair Salon">
+        </div>
+        <div class="gallery-card-body">
+          <p>Celebration night &mdash; guests, drinks &amp; good vibes at the new Bloom</p>
+        </div>
+      </div>
+      <div class="gallery-card scroll-anim">
+        <div class="gallery-card-image">
+          <img src="img/image-v12.png" alt="Family at Bloom salon launch">
+        </div>
+        <div class="gallery-card-body">
+          <p>Family &amp; friends at the grand reveal</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HAPPY CUSTOMERS / GALLERY -->
+  <section class="gallery-section scroll-anim">
+    <div class="sec-header">
+      <p class="sec-eyebrow">&#9733; Our Work</p>
+      <h2 class="sec-title"><span style="color:var(--pink)">Looking Great</span></h2>
+    </div>
+    <div class="gallery-grid scroll-anim-children">
+      <div class="gallery-card scroll-anim">
+        <div class="gallery-card-image">
+          <img src="img/image-v6.png" alt="Blonde with purple tips - stunning colour work">
+        </div>
+        <div class="gallery-card-body">
+          <p>Blonde with vivid purple tips &mdash; creative colour at its finest</p>
+        </div>
+      </div>
+      <div class="gallery-card scroll-anim">
+        <div class="gallery-card-image">
+          <img src="img/image-v7.png" alt="Rich brunette waves">
+        </div>
+        <div class="gallery-card-body">
+          <p>Rich brunette waves &mdash; glossy, healthy, and full of dimension</p>
+        </div>
+      </div>
+      <div class="gallery-card scroll-anim">
+        <div class="gallery-card-image">
+          <img src="img/image-v8.png" alt="Blonde balayage">
+        </div>
+        <div class="gallery-card-body">
+          <p>Sun-kissed blonde balayage &mdash; effortlessly beautiful</p>
+        </div>
+      </div>
+      <div class="gallery-card scroll-anim">
+        <div class="gallery-card-image">
+          <img src="img/image-v9.png" alt="Purple lilac colour at Bloom salon">
+        </div>
+        <div class="gallery-card-body">
+          <p>Dreamy purple lilac &mdash; bold colour, done beautifully at Bloom</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEET THE TEAM -->
+  <section class="team-section scroll-anim">
+    <div class="sec-header">
+      <p class="sec-eyebrow">&#128149; Our Family</p>
+      <h2 class="sec-title">Meet the Team & <span style="color:var(--pink)">Our Family</span></h2>
+    </div>
+    <div class="team-grid scroll-anim-children">
+      <div class="team-card scroll-anim">
+        <div class="team-card-image">
+          <img src="img/image-v2.png" alt="Bloom team holiday celebration">
+        </div>
+        <div class="team-card-body">
+          <p>Holiday celebrations &mdash; our amazing team enjoying the festive season together</p>
+        </div>
+      </div>
+      <div class="team-card scroll-anim">
+        <div class="team-card-image">
+          <img src="img/image-v3.png" alt="Bloom team selfie">
+        </div>
+        <div class="team-card-body">
+          <p>Team selfie &mdash; the faces behind your fabulous new look</p>
+        </div>
+      </div>
+      <div class="team-card scroll-anim">
+        <div class="team-card-image">
+          <img src="img/image-v5.png" alt="Bloom team dinner">
+        </div>
+        <div class="team-card-body">
+          <p>Team dinner &mdash; we work hard and celebrate together</p>
+        </div>
+      </div>
+      <div class="team-card scroll-anim">
+        <div class="team-card-image">
+          <img src="img/image-v10.png" alt="Bloom team at the salon">
+        </div>
+        <div class="team-card-body">
+          <p>At the salon &mdash; always smiling, always ready for you</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-section scroll-anim">
+    <div class="sec-header">
+      <p class="sec-eyebrow">&#9733; Our Services</p>
+      <h2 class="sec-title">What We Offer</h2>
+    </div>
+
+    <div class="service-category">
+      <h3 class="service-category-title">Colour</h3>
+      <div class="service-grid">
+        <div class="service-card">
+          <div class="service-card-icon">&#127912;</div>
+          <h3>Balayage</h3>
+          <p>Hand-painted, sun-kissed highlights for a natural, dimensional look that grows out beautifully.</p>
+          <div class="service-price">From $120</div>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon">&#10024;</div>
+          <h3>Highlights</h3>
+          <p>Classic foil highlights &mdash; full head or half head. Customised placement for maximum impact.</p>
+          <div class="service-price">From $95</div>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon">&#127800;</div>
+          <h3>Full Colour</h3>
+          <p>Root to tip transformation. Rich, even colour coverage using premium professional products.</p>
+          <div class="service-price">From $75</div>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon">&#128156;</div>
+          <h3>Creative Colour</h3>
+          <p>Pastels, vivids, colour melts &mdash; express yourself with bold, head-turning shades.</p>
+          <div class="service-price">From $140</div>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon">&#127774;</div>
+          <h3>Root Touch-Up</h3>
+          <p>Quick refresh for grown-out roots. Seamless blending to keep your colour looking fresh between full appointments.</p>
+          <div class="service-price">From $55</div>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon">&#128171;</div>
+          <h3>Colour Correction</h3>
+          <p>Fix uneven tones, banding, or unwanted shades. We'll restore your hair to exactly where you want it.</p>
+          <div class="service-price">From $180</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-category">
+      <h3 class="service-category-title">Cut &amp; Style</h3>
+      <div class="service-grid">
+        <div class="service-card">
+          <div class="service-card-icon">&#9986;</div>
+          <h3>Cut &amp; Blow Dry</h3>
+          <p>Precision cut tailored to your face shape and lifestyle, finished with a beautiful blow dry.</p>
+          <div class="service-price">From $55</div>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon">&#9733;</div>
+          <h3>Restyle</h3>
+          <p>Ready for a complete change? Our stylists will create a fresh new look designed just for you.</p>
+          <div class="service-price">From $65</div>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon">&#9988;</div>
+          <h3>Trim &amp; Tidy</h3>
+          <p>Quick shape-up to keep your current style looking sharp and healthy between full appointments.</p>
+          <div class="service-price">From $30</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-category">
+      <h3 class="service-category-title">Treatments</h3>
+      <div class="service-grid">
+        <div class="service-card">
+          <div class="service-card-icon">&#128167;</div>
+          <h3>Olaplex</h3>
+          <p>Bond-building treatment that repairs and strengthens damaged hair from the inside out.</p>
+          <div class="service-price">From $40</div>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon">&#127807;</div>
+          <h3>Deep Conditioning</h3>
+          <p>Intensive moisture treatment to restore softness, shine, and manageability to dry or stressed hair.</p>
+          <div class="service-price">From $35</div>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon">&#128144;</div>
+          <h3>Scalp Treatment</h3>
+          <p>Relaxing scalp massage and treatment to promote healthy hair growth and soothe irritation.</p>
+          <div class="service-price">From $45</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <h2>Ready for a New Look?</h2>
+    <p>Book your appointment today and let our expert team transform your hair.</p>
+    <button class="cta-white-btn">&#128197; Book Your Appointment</button>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-left">
+      <div class="footer-info">
+        <strong>Bloom Hair Salon</strong>
+        Expert Colour, Cut &amp; Styling
+      </div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">Facebook</a></li>
+      <li><a href="#">Book Online</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </footer>
+</div>
+
+<div class="powered">
+  Developed by <a href="https://alejandrodelarocha.com" target="_blank" rel="noopener">AlejandroDeLaRocha.com</a>
+</div>
+
+<script>
+(function() {
+  var galleryCards = document.querySelectorAll('.gallery-card');
+  var teamCards = document.querySelectorAll('.team-card');
+  var serviceCards = document.querySelectorAll('.service-card');
+  var ticking = false;
+
+  /* Scroll-triggered reveal animations */
+  (function initScrollAnimations() {
+    var els = document.querySelectorAll('.scroll-anim');
+    if (!els.length) return;
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    els.forEach(function(el) { observer.observe(el); });
+  })();
+
+  /* Parallax on scroll - gallery, team, and section headers */
+  function updateParallax() {
+    var scrollY = window.scrollY || window.pageYOffset;
+    var vh = window.innerHeight;
+
+    // Gallery cards - gentle float
+    galleryCards.forEach(function(el, i) {
+      if (!el.classList.contains('in-view')) return;
+      var rect = el.getBoundingClientRect();
+      var center = rect.top + rect.height / 2;
+      var viewCenter = vh / 2;
+      var dy = (viewCenter - center) * 0.05;
+      var stagger = (i % 4 - 1.5) * 4;
+      el.style.transform = 'translateY(' + Math.round(dy + stagger) + 'px)';
+    });
+
+    // Team cards - subtle parallax
+    teamCards.forEach(function(el, i) {
+      if (!el.classList.contains('in-view')) return;
+      var rect = el.getBoundingClientRect();
+      var center = rect.top + rect.height / 2;
+      var viewCenter = vh / 2;
+      var dy = (viewCenter - center) * 0.03;
+      el.style.transform = 'translateY(' + Math.round(dy) + 'px)';
+    });
+
+    // Video hero parallax - slow scroll
+    var heroVideo = document.querySelector('.site-hero video');
+    if (heroVideo) {
+      var heroRect = heroVideo.closest('.site-hero').getBoundingClientRect();
+      if (heroRect.bottom > 0 && heroRect.top < vh) {
+        var progress = (vh - heroRect.top) / (vh + heroRect.height);
+        heroVideo.style.transform = 'scale(1.1) translateY(' + Math.round((progress - 0.5) * 40) + 'px)';
+      }
+    }
+
+    // News banner parallax
+    var newsBanner = document.querySelector('.news-banner');
+    if (newsBanner) {
+      var nRect = newsBanner.getBoundingClientRect();
+      if (nRect.bottom > 0 && nRect.top < vh) {
+        var nProgress = (vh - nRect.top) / (vh + nRect.height);
+        newsBanner.style.transform = 'translateY(' + Math.round((0.5 - nProgress) * 15) + 'px)';
+      }
+    }
+
+    ticking = false;
+  }
+
+  function requestTick() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(updateParallax);
+    }
+  }
+
+  window.addEventListener('scroll', requestTick, { passive: true });
+  window.addEventListener('resize', requestTick);
+
+  /* Mouse tilt effect on gallery cards */
+  galleryCards.forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      var rect = card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = 'translateY(-8px) scale(1.02) perspective(600px) rotateY(' + (x * 6) + 'deg) rotateX(' + (-y * 6) + 'deg)';
+    });
+    card.addEventListener('mouseleave', function() {
+      card.style.transform = '';
+    });
+  });
+
+  /* Mouse tilt effect on service cards */
+  serviceCards.forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      var rect = card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = 'translateY(-6px) perspective(600px) rotateY(' + (x * 4) + 'deg) rotateX(' + (-y * 4) + 'deg)';
+    });
+    card.addEventListener('mouseleave', function() {
+      card.style.transform = '';
+    });
+  });
+
+  /* Smooth nav link scrolling */
+  document.querySelectorAll('.site-nav-links a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  /* Initial parallax update */
+  updateParallax();
+})();
+</script>
+
+</body>
+</html>
